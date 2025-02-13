@@ -2,43 +2,74 @@ program pilas_ej1;
 
 uses
     sysutils, 
-    uPilaChar; { 1.1 Genera una unidad pila cuyos nodos almacenen un único carácter.}
+    uPilaChar; { 1.Genera una unidad pila cuyos nodos almacenen un único carácter.}
 
 
-{ 1.2
-    Define una función balanceada para comprobar el balance de paréntesis de una expresión aritmética.
-    Una expresión aritmética está balanceada si cada paréntesis de apertura tiene un paréntesis de cierre correspondiente.
-    Los paréntesis deben estar correctamente anidados.
-    No se comprobará si los paréntesis están en el lugar correcto (por ejemplo, (3+2*)5 o 3(+4-)2 no es una expresión aritmética 
-    válida pero vamos a considerarla balanceada).
-    - Entradas:
-        - Una cadena de caracteres que representa una expresión aritmética.
-    - Salida:
-        - Devuelve true si la expresión está balanceada, es decir, si los paréntesis están correctamente cerrados y anidados.
-    - Ejemplos
-        - (3+2)*5 -> true
-        - 3+(4-2 -> false
-        - (3+2)*5+(4-2) -> true
-        - (3(+2)*5)+(4-2 -> false
-}
+function balanceada(cadena:string):boolean;
+	var
+		i:integer;
+	begin
+		initialize(p);
+		length(cadena);
+		if (isEmpty(p)) then
+		begin
+			for i:=0 to length(cadena)-1 do
+			begin
+				if (cadena[i]='(') then
+					push(p,cadena[i]);
+				if (cadena[i]=')') and (not isEmpty(p)) then
+					pop(p);
+			end;
+		end;
+		
+		if (isEmpty(p)) then
+			balanceada:=true
+		else
+			balanceada:=false;
+			
+	end;
 
-{ 1.3
-    Mejora la función balanceada para que compruebe también los corchetes.
-    - Entradas:
-        - Una cadena de caracteres que representa una expresión aritmética.
-    - Salida:
-        - Devuelve true si la expresión está balanceada, es decir, si los paréntesis y corchetes están correctamente cerrados y anidados.
-    - Ejemplos
-        - (3+2)*5 -> true
-        - 3+(4-2 -> false
-        - (3+2)*5+(4-2) -> true
-        - (3(+2)*5)+(4-2 -> false
-        - [3+2]*5 -> true
-        - 3+[4-2 -> false
-        - [3+2]*5+[4-2] -> true
-        - [3[+2]*5]+[4-2] -> false
-
-}
+function balanceadaCorchetes(cadena:string):boolean;
+	var
+		i:integer;
+		correcto1,correcto2:boolean;
+	begin
+		correcto1:=false;
+		correcto2:=false;
+		initialize(p);
+		length(cadena);
+		
+		if (isEmpty(p)) then
+		begin
+			for i:=0 to length(cadena)-1 do
+			begin
+				if (cadena[i]='(') then
+					push(p,cadena[i]);
+				if (cadena[i]=')') and (not isEmpty(p)) then
+					pop(p);
+			end;
+			if (isEmpty) then
+				correcto1:=true;
+		end;
+		
+		if (isEmpty(p)) then
+		begin
+			for i:=0 to length(cadena)-1 do
+			begin
+				if (cadena[i]='[') then
+					push(p,cadena[i]);
+				if (cadena[i]=']') and (not isEmpty(p)) then
+					pop(p);
+			end;
+			if (isEmpty) then
+				correcto2:=true;
+		end;
+		
+		if (correcto1) and (correcto2) then
+			balanceada2:=true
+		else
+			balanceada2:=false;
+	end;
 
 const
     expresion1 = '(3+2)*5';
